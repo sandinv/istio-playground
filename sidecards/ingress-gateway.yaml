@@ -1,0 +1,14 @@
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: my-ingress
+spec:
+  selector:
+    app.kubernetes.io/name: istio-ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http2
+      protocol: HTTP2
+    hosts:
+    - "*"

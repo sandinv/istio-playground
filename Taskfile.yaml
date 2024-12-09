@@ -1,0 +1,11 @@
+version: '3'
+
+tasks:
+  init-cluster:
+    cmds:
+      - kind create cluster --config=kind-config.yaml
+  install-istio-sidecards:
+    cmds:
+      - kubectl create ns istio-system
+      - kubectl apply -f sidecards/demo.yaml
+      - kubectl apply -f sidecards/ingress-gateway.yaml
