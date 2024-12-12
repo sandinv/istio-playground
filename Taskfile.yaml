@@ -14,6 +14,15 @@ tasks:
   init-cluster:
     cmds:
       - kind create cluster --config=kind-config.yaml
+  
+  install-gateway-crds:
+    cmds: 
+      - kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || { kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd?ref=v1.2.0" | kubectl apply -f -; }
+
+  deploy-bookinfo-gw:
+    cmds:
+      - kubectl apply -f sidecards/k8s-gateway.yaml
+      - kubectl -n bookinfo patch svc/bookinfo-gateway-istio --patch-file sidecards/k8s-gateway-patch.json 
 
   install-istio-sidecards:
     cmds:
