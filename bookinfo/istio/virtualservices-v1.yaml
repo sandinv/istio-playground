@@ -1,0 +1,60 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: productpage
+spec:
+  hosts:
+  - productpage.bookinfo.local
+  gateways:
+  - istio-system/my-ingress
+  http:
+  - route:
+    - destination:
+        host: productpage
+        subset: v1
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: reviews
+spec:
+  gateways:
+  - istio-system/my-ingress
+  hosts:
+  - reviews.bookinfo.local
+  http:
+  - route:
+    - destination:
+        host: reviews
+        subset: v1
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: ratings
+spec:
+  gateways:
+  - istio-system/my-ingress
+  hosts:
+  - ratings.bookinfo.local
+  http:
+  - route:
+    - destination:
+        host: ratings
+        subset: v1
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: details
+spec:
+  gateways:
+  - istio-system/my-ingress
+  hosts:
+  - details.bookinfo.local
+  http:
+  - route:
+    - destination:
+        host: details
+        subset: v1
+---

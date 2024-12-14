@@ -34,3 +34,8 @@ tasks:
     cmds:
       - kubectl apply -n bookinfo -f bookinfo/namespace.yml
       - kubectl apply -n bookinfo -f bookinfo/
+
+  expose-bookinfo:
+    cmds:
+      - kubectl apply -n bookinfo -f bookinfo/istio/destinationrules.yaml
+      - kubectl apply -n bookinfo -f bookinfo/istio/virtualservices-v1.yaml
