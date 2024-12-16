@@ -11,10 +11,10 @@ tasks:
       - sudo mkdir -v /etc/resolver
       - sudo bash -c 'echo "nameserver 127.0.0.1" > /etc/resolver/local'
 
-  install-sidecard:
+  install-sidecars:
     cmds:
       - tofu apply
-    dir: sidecards
+    dir: sidecars
   install-gateway-crds:
     cmds: 
       - kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || { kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd?ref=v1.2.0" | kubectl apply -f -; }

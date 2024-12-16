@@ -1,7 +1,6 @@
 provider "helm" {
   kubernetes {
-    config_path = "~/.kube/config"
-	config_context= "kind-istio"
+    config_path = "istio-config"
   }
 }
 module "cluster" {
