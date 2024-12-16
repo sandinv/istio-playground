@@ -11,10 +11,10 @@ tasks:
       - sudo mkdir -v /etc/resolver
       - sudo bash -c 'echo "nameserver 127.0.0.1" > /etc/resolver/local'
 
-  init-cluster:
+  install-sidecard:
     cmds:
-      - kind create cluster --config=kind-config.yaml
-  
+      - tofu apply
+    dir: sidecards
   install-gateway-crds:
     cmds: 
       - kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || { kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd?ref=v1.2.0" | kubectl apply -f -; }
@@ -23,12 +23,6 @@ tasks:
     cmds:
       - kubectl apply -f sidecards/k8s-gateway.yaml
       - kubectl -n bookinfo patch svc/bookinfo-gateway-istio --patch-file sidecards/k8s-gateway-patch.json 
-
-  install-istio-sidecards:
-    cmds:
-      - kubectl create ns istio-system --dry-run=client -o yaml | kubectl apply -f-
-      - kubectl apply -f sidecards/demo.yaml
-      - kubectl apply -f sidecards/ingress-gateway.yaml
 
   deploy-bookinfo:
     cmds:
