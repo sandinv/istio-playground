@@ -13,10 +13,16 @@ tasks:
 
   install-sidecars:
     cmds:
+      - tofu init
       - tofu apply
     dir: sidecars
     env:
       TF_VAR_bookinfo: true
+
+  install-ambient:
+    cmds:
+      - tofu apply
+    dir: ambient
 
   install-gateway-crds:
     cmds: 

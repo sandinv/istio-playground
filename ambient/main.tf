@@ -7,6 +7,14 @@ provider "kubernetes" {
   config_path = "istio-config"
 }
 
+terraform {
+  required_providers {
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = "1.18.0"
+    }
+  }
+}
 provider "kubectl" {
   config_path = "istio-config"
 }
@@ -26,12 +34,6 @@ module "cluster" {
       host_port      = 8443
       protocol       = "tcp"
     }
-  ]
-}
-module "bookinfo" {
-  source = "../bookinfo"
-  depends_on = [
-    module.cluster
   ]
 }
 
